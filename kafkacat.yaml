@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: kafkacat
+  name: kafkacat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: kafkacat
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: kafkacat
+    spec:
+      containers:
+      - image: solsson/kafkacat
+        name: kafkacat
+        resources: {}
+        command:
+          - sh
+          - -c
+          - "exec tail -f /dev/null"
+status: {}
