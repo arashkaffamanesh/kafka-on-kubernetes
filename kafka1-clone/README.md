@@ -18,7 +18,9 @@ The kafka brokers and zookeeper pods should bind to the cloned PVCs and have the
 
 ## Create kafka1-clone namespace
 
+```bash
 k create ns kafka1-clone
+```
 
 ## Create the snapshots from brokers and zookeepers:
 
@@ -33,11 +35,15 @@ k create -f snapshot-data-kafka1-zookeeper-2.yaml
 
 ## List the volumesnapshots
 
+```bash
 k get volumesnapshot
+```
 
 ## List the volumesnapshotdata
 
+```bash
 k get volumesnapshotdata
+```
 
 ## Create new PVCs in the kafka1-clone namespace
 
@@ -50,12 +56,20 @@ k apply -f pvc-snapshot-data-kafka1-zookeeper-1.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-zookeeper-2.yaml -n kafka1-clone
 ```
 
+## Get the PVCs
+
+```bash
 $ k get pvc -n kafka1-clone
+```
 
 ## Allow to deploy kafka1 cluster in namespace kafka1-clone
 
+```bash
 helm upgrade --reuse-values --set watchNamespaces="{kafka1-clone}" strimzi-cluster-operator strimzi/strimzi-kafka-operator
+```
 
-## Deploy kafka1 clone in the kafka1-clone namespace
+## Deploy a clone of kafka1 cluster in the kafka1-clone namespace
 
+```bash
 $ k apply -f kafka1-clone-cluster.yaml
+```
