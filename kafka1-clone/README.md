@@ -1,6 +1,6 @@
 # Restore Kafka from OpenEBS Snapshots, the Hard Way
 
-This is an attempt to create a clone from the kafka1 cluster into a new kafka clutser in the namespace kafka1-clone on te same k8s cluster.
+This is an attempt to create a clone from the kafka1 cluster into a new kafka clutser in the namespace kafka1-clone on the same k8s cluster with OpenEBS Snapshots.
 
 The steps are as following:
 
@@ -22,12 +22,14 @@ k create ns kafka1-clone
 
 ## Create the snapshots from brokers and zookeepers:
 
+```bash
 k create -f snapshot-data-kafka1-kafka-0.yaml
 k create -f snapshot-data-kafka1-kafka-1.yaml
 k create -f snapshot-data-kafka1-kafka-2.yaml
 k create -f snapshot-data-kafka1-zookeeper-0.yaml
 k create -f snapshot-data-kafka1-zookeeper-1.yaml
 k create -f snapshot-data-kafka1-zookeeper-2.yaml
+```
 
 ## List the volumesnapshots
 
@@ -39,19 +41,21 @@ k get volumesnapshotdata
 
 ## Create new PVCs in the kafka1-clone namespace
 
+```bash
 k apply -f pvc-snapshot-data-kafka1-kafka-0.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-kafka-1.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-kafka-2.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-zookeeper-0.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-zookeeper-1.yaml -n kafka1-clone
 k apply -f pvc-snapshot-data-kafka1-zookeeper-2.yaml -n kafka1-clone
+```
 
 $ k get pvc -n kafka1-clone
 
-## allow to deploy kafka1 cluster in namespace kafka1-clone
+## Allow to deploy kafka1 cluster in namespace kafka1-clone
 
 helm upgrade --reuse-values --set watchNamespaces="{kafka1-clone}" strimzi-cluster-operator strimzi/strimzi-kafka-operator
 
-## deploy kafka1 clone in the kafka1-clone namespace
+## Deploy kafka1 clone in the kafka1-clone namespace
 
 $ k apply -f kafka1-clone-cluster.yaml
