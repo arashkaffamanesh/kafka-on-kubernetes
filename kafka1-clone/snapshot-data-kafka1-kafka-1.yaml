@@ -1,0 +1,7 @@
+apiVersion: volumesnapshot.external-storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: snapshot-data-kafka1-kafka-1
+  namespace: kafka1
+spec:
+  persistentVolumeClaimName: data-kafka1-kafka-1 

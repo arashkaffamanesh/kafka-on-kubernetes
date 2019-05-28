@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-kafka1-zookeeper-2 
+  annotations:
+    snapshot.alpha.kubernetes.io/snapshot: snapshot-data-kafka1-zookeeper-2
+spec:
+  storageClassName: openebs-standard
+  accessModes: 
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
