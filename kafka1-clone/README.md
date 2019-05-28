@@ -1,6 +1,6 @@
 # Restore Kafka from OpenEBS Snapshots, the Hard or the Easy Way?
 
-This is an attempt to create a clone from the kafka1 cluster into a new kafka clutser in the namespace kafka1-clone on the same k8s cluster with OpenEBS Snapshots.
+This is an attempt to create a clone from the kafka1 cluster into a new kafka clutser in the namespace kafka1-clone on the same k8s cluster (Rancher Kubernetes) with OpenEBS Snapshots.
 
 The steps are as following:
 
